@@ -1,16 +1,421 @@
-<style>
-  /* ============================================================
-     IRON ROSE TATTOO — InkFlow v0.1
-     Палитра: сажа / кость / окисленное железо / латунь
-     ============================================================ */
-:root{
-    --soot:      #121014;  /* фон — тёплая сажа, не чистый чёрный */
-    --soot-2:    #1A171C;  /* карточки */
-    --bone:      #E7DFD1;  /* основной текст — кость/старая бумага */
-    --bone-dim:  #9A9184;  /* вторичный текст */
-    --iron-red:  #9E3131;  /* окисленное железо — акцент */
-    --iron-red-2:#C24444;  /* hover-состояние акцента */
-    --brass:     #A98B5B;  /* латунь — тонкие детали */
-    --line:      #2C272E;  /* линии и рамки */
+/* ================================================================
+   IRON ROSE TATTOO — InkFlow
+   Base Design System CSS
+   ----------------------------------------------------------------
+   Палитра: сажа / кость / окисленное железо / латунь
+   Шрифты: Pirata One (заголовки), Oswald (UI/лейблы), Lora (текст)
+   ----------------------------------------------------------------
+   Подключение шрифтов — вставить в <head> HTML:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Oswald:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+   ================================================================ */
+
+
+/* =========================
+   1. DESIGN TOKENS
+   ========================= */
+
+:root {
+  /* --- цвета --- */
+  --soot:        #121014;   /* фон — тёплая сажа                    */
+  --soot-2:      #1A171C;   /* поверхности: карточки, секции         */
+  --bone:        #E7DFD1;   /* основной текст — кость / старая бумага */
+  --bone-dim:    #9A9184;   /* вторичный текст, подписи              */
+  --iron-red:    #9E3131;   /* акцент — окисленное железо            */
+  --iron-red-2:  #C24444;   /* акцент hover                          */
+  --brass:       #A98B5B;   /* латунь — тонкие детали, метки         */
+  --line:        #2C272E;   /* линии, рамки, разделители             */
+
+  /* --- шрифты --- */
+  --font-display: 'Pirata One', serif;
+  --font-ui:      'Oswald', sans-serif;
+  --font-body:    'Lora', serif;
+
+  /* --- размеры текста --- */
+  --text-xs:   0.72rem;
+  --text-sm:   0.85rem;
+  --text-base: 1rem;
+  --text-md:   1.05rem;
+  --text-lg:   1.5rem;
+  --text-xl:   clamp(2.4rem, 7vw, 4rem);
+  --text-hero: clamp(3rem, 9vw, 6.2rem);
+
+  /* --- отступы / лейаут --- */
+  --wrap-max:     960px;
+  --wrap-padding: 24px;
+  --gap-sm:       8px;
+  --gap-md:       20px;
+  --gap-lg:       34px;
+  --gap-section:  56px;
+
+  /* --- скругления (на этом сайте 0, но токен есть для доработки) --- */
+  --radius: 0px;
+
+  /* --- переходы --- */
+  --ease: 0.2s ease;
+}
+
+
+/* =========================
+   2. RESET / БАЗА
+   ========================= */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
   }
-</style>
+}
+
+body {
+  background: var(--soot);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================
+   3. ТЕКСТУРА ФОНА
+   ========================= */
+
+/* Лёгкое свечение + бумажная текстура через CSS — без картинок.
+   Убрать — просто удалить этот блок. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(158, 49, 49, .07), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0 2px, rgba(255, 255, 255, .006) 2px 4px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+/* =========================
+   4. ЛЕЙАУТ
+   ========================= */
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 var(--wrap-padding);
+}
+
+
+/* =========================
+   5. ТИПОГРАФИКА
+   ========================= */
+
+/* --- декоративный / логотип --- */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+/* --- UI: лейблы, кнопки, навигация --- */
+.font-ui {
+  font-family: var(--font-ui);
+}
+
+/* --- универсальный "caps label" (часы, секции, мета) --- */
+.label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+/* --- секционный заголовок (THE WORK, BOOK IN) --- */
+.section-title {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: var(--gap-lg);
+}
+
+/* --- крупный декоративный заголовок --- */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-hero);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  color: var(--bone);
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-lg);
+  color: var(--bone);
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--bone);
+}
+
+p {
+  color: var(--bone);
+  font-size: var(--text-base);
+}
+
+/* вторичный текст */
+.text-dim {
+  color: var(--bone-dim);
+}
+
+/* акцентный цвет в тексте */
+.text-accent {
+  color: var(--iron-red);
+}
+
+.text-brass {
+  color: var(--brass);
+}
+
+a {
+  color: var(--iron-red);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+a:hover {
+  color: var(--iron-red-2);
+}
+
+
+/* =========================
+   6. КОМПОНЕНТЫ
+   ========================= */
+
+/* --- кнопка-акцент (CTA / submit) --- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bone);
+  background: var(--iron-red);
+  padding: 16px 38px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--ease);
+}
+
+.btn:hover {
+  background: var(--iron-red-2);
+  color: var(--bone);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 3px;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+/* --- карточка / поверхность --- */
+.card {
+  background: var(--soot-2);
+  border: 1px solid var(--line);
+  padding: 42px 36px;
+  border-radius: var(--radius);
+}
+
+/* --- гридовая сетка с 1px-зазорами --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.grid > * {
+  background: var(--soot-2);
+  padding: 30px 26px;
+}
+
+/* --- «шов»-разделитель с элементом по центру --- */
+.seam {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: var(--gap-sm) 0;
+  color: var(--brass);
+}
+
+.seam::before,
+.seam::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
+}
+
+/* --- горизонтальный разделитель --- */
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--line);
+}
+
+
+/* =========================
+   7. ФОРМЫ
+   ========================= */
+
+label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  margin-bottom: 9px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  background: var(--soot);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  padding: 14px 15px;
+  transition: border-color 0.15s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--iron-red);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--bone-dim);
+  opacity: 0.6;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+/* два поля в ряд */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-md);
+}
+
+@media (max-width: 600px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* отступ между полями */
+.field {
+  margin-bottom: 24px;
+}
+
+/* honeypot — скрытая ловушка для ботов */
+.hp {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* статус формы */
+.status {
+  margin-top: var(--gap-md);
+  padding: 15px 18px;
+  font-size: 0.95rem;
+  display: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.status.ok  { display: block; border-color: var(--brass);    color: var(--bone); }
+.status.err { display: block; border-color: var(--iron-red); color: var(--bone); }
+
+
+/* =========================
+   8. ШАПКА / ПОДВАЛ
+   ========================= */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  margin-top: 40px;
+  padding: 34px 0 46px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 40px;
+  justify-content: space-between;
+  color: var(--bone-dim);
+  font-size: 0.9rem;
+}
+
+
+/* =========================
+   9. УТИЛИТЫ
+   ========================= */
+
+.text-center { text-align: center; }
+.mt-sm  { margin-top: var(--gap-sm); }
+.mt-md  { margin-top: var(--gap-md); }
+.mt-lg  { margin-top: var(--gap-lg); }
+.mb-sm  { margin-bottom: var(--gap-sm); }
+.mb-md  { margin-bottom: var(--gap-md); }
+.mb-lg  { margin-bottom: var(--gap-lg); }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.max-w-narrow { max-width: 520px; }
+.max-w-medium { max-width: 680px; }
