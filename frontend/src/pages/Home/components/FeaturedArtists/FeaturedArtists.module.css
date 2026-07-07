@@ -1,0 +1,32 @@
+.section {
+    padding: 120px 24px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.label {
+    color: var(--brass);
+    text-transform: uppercase;
+    letter-spacing: .25em;
+}
+
+.title {
+    margin: 20px 0 60px;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

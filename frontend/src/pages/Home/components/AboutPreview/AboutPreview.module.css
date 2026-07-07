@@ -1,0 +1,30 @@
+.about {
+    padding: 120px 24px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.label {
+    color: var(--brass);
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    font-size: .85rem;
+}
+
+.title {
+    margin: 20px 0 30px;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--bone);
+}
+
+.text {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    color: var(--bone-dim);
+    line-height: 1.8;
+}

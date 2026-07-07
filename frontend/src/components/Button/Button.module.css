@@ -1,0 +1,36 @@
+.button {
+    padding: 16px 36px;
+
+    font-family: var(--font-ui);
+
+    text-transform: uppercase;
+
+    letter-spacing: .15em;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+
+    border: none;
+}
+
+.primary {
+    background: var(--iron-red);
+    color: var(--bone);
+}
+
+.primary:hover {
+    background: var(--iron-red-2);
+}
+
+.secondary {
+    background: transparent;
+
+    color: var(--bone);
+
+    border: 1px solid var(--line);
+}
+
+.secondary:hover {
+    border-color: var(--brass);
+}

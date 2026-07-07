@@ -1,0 +1,23 @@
+.card {
+    background: var(--soot-2);
+    border: 1px solid var(--line);
+}
+
+.image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.content {
+    padding: 24px;
+}
+
+.content h3 {
+    margin-bottom: 10px;
+}
+
+.content p {
+    color: var(--bone-dim);
+    margin-bottom: 24px;
+}
