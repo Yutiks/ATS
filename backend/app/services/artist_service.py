@@ -5,6 +5,8 @@ from app.models.artist import Artist
 from app.schemas.artist import ArtistCreate
 from app.models.artist import Artist
 
+from app.schemas.artist import ArtistUpdate
+
 
 class ArtistService:
     @staticmethod
@@ -33,3 +35,36 @@ class ArtistService:
             .filter(Artist.slug == slug)
             .first()
         )
+
+    @staticmethod
+    def update(db: Session, artist_id: int, artist_data: ArtistUpdate):
+        artist = db.get(Artist, artist_id)
+
+        if artist is None:
+            return None
+
+        artist.name = artist_data.name
+        artist.slug = artist_data.slug
+        artist.style = artist_data.style
+        artist.image = artist_data.image
+
+        db.commit()
+        db.refresh(artist)
+
+        return artist
+
+    @staticmethod
+    def delete(db: Session, artist_id: int):
+        artist = db.get(Artist, artist_id)
+
+        if artist is None:
+            return False
+
+        db.delete(artist)
+        db.commit()
+
+        return True
+
+    @staticmethod
+    def get_by_id(db: Session, artist_id: int):
+        return db.get(Artist, artist_id)

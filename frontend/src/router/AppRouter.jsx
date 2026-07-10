@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../layouts/MainLayout/MainLayout";
 import Home from "../pages/Home/Home";
 import About from "../pages/About/About";
 import Artists from "../pages/Artists/Artists";
@@ -13,6 +13,11 @@ import Contact from "../pages/Contact/Contact";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Profile from "../pages/Profile/Profile";
+import AdminLayout from "@/layouts/AdminLayout/AdminLayout";
+
+import Dashboard from "@/pages/Admin/Dashboard/Dashboard";
+import AdminArtists from "@/pages/Admin/Artists/AdminArtists";
+import ArtistForm from "@/pages/Admin/ArtistForm/ArtistForm";
 
 function AppRouter() {
     return (
@@ -33,6 +38,14 @@ function AppRouter() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/profile" element={<Profile />} />
+
+                    <Route path="/admin" element={<AdminLayout />}>
+                        <Route index element={<Dashboard />} />
+                        <Route path="artists" element={<AdminArtists />} />
+                        <Route path="artists/new" element={<ArtistForm />} />
+                        <Route path="artists/:id/edit" element={<ArtistForm />} />
+                    </Route>
+
                 </Route>
             </Routes>
         </BrowserRouter>

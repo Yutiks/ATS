@@ -12,6 +12,10 @@ class ArtistCreate(ArtistBase):
     pass
 
 
+class ArtistUpdate(ArtistBase):
+    pass
+
+
 class Artist(ArtistBase):
     id: int
 
