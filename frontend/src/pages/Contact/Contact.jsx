@@ -1,7 +1,13 @@
-import styles from "./Contact.module.css";
+import ConsultationForm from "@/components/ConsultationForm/ConsultationForm";
 
 function Contact() {
-    return <h1>Contact</h1>;
+    return (
+        <section>
+            <h1>Book a Consultation</h1>
+
+            <ConsultationForm />
+        </section>
+    );
 }
 
 export default Contact;
